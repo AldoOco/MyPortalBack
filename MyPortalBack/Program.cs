@@ -1,3 +1,4 @@
+using MyPortalBack.Api.Middlewares;
 using MyPortalBack.Application.DependencyInjection;
 using MyPortalBack.Infrastructure.DependencyInjection;
 
@@ -23,7 +24,11 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
+
 app.UseAuthorization();
+
+app.UseMiddleware<GlobalExceptionMiddleware>();
 
 app.MapControllers();
 
