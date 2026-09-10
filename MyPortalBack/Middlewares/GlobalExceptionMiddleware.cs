@@ -5,15 +5,26 @@ using MyPortalBack.Application.Common.Exceptions;
 
 namespace MyPortalBack.Api.Middlewares;
 
+/// <summary>
+/// Middleware global para el manejo de excepciones.
+/// </summary>
 public class GlobalExceptionMiddleware
 {
     private readonly RequestDelegate _next;
 
+    /// <summary>
+    /// Inicializa una nueva instancia del middleware.
+    /// </summary>
+    /// <param name="next">Siguiente componente del pipeline HTTP.</param>
     public GlobalExceptionMiddleware(RequestDelegate next)
     {
         _next = next;
     }
 
+    /// <summary>
+    /// Procesa una solicitud HTTP y captura las excepciones no controladas.
+    /// </summary>
+    /// <param name="context">Contexto HTTP actual.</param>
     public async Task InvokeAsync(HttpContext context)
     {
         try

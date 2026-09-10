@@ -1,12 +1,15 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using MyPortalBack.Application.Common.Interfaces;
+using MyPortalBack.Infrastructure.Persistence.Context;
+using MyPortalBack.Infrastructure.Repositories;
+using MyPortalBack.Infrastructure.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using MyPortalBack.Infrastructure.Persistence.Context;
 
 namespace MyPortalBack.Infrastructure.DependencyInjection;
 
@@ -25,6 +28,9 @@ public static class DependencyInjection
         services.AddDbContext<ApplicationDbContext>(options =>
             options.UseNpgsql(
                 configuration.GetConnectionString("DefaultConnection")));
+
+        services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IPasswordHasher, BCryptPasswordHasher>();
 
         return services;
     }

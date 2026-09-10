@@ -14,14 +14,18 @@ public class Result<T>
 
     public IReadOnlyCollection<string> Errors { get; }
 
+    public string? ErrorCode { get; }
+
     protected Result(
         bool success,
         T? value,
-        IReadOnlyCollection<string> errors)
+        IReadOnlyCollection<string> errors,
+        string? errorCode = null)
     {
         Success = success;
         Value = value;
         Errors = errors;
+        ErrorCode = errorCode;
     }
 
     public static Result<T> Ok(T value)
@@ -46,5 +50,15 @@ public class Result<T>
             false,
             default,
             errors.ToArray());
+    }
+    public static Result<T> FailureWithCode(
+        string errorCode,
+        params string[] errors)
+    {
+        return new Result<T>(
+            false,
+            default!,
+            errors,
+            errorCode);
     }
 }

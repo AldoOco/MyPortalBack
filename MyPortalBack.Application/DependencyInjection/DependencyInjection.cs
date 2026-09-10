@@ -1,12 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FluentValidation;
+﻿using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
+using MyPortalBack.Application.Common.Interfaces;
+using MyPortalBack.Application.Features;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
+using System.Text;
+using System.Threading.Tasks;
+
 
 namespace MyPortalBack.Application.DependencyInjection;
 
@@ -19,7 +22,10 @@ namespace MyPortalBack.Application.DependencyInjection;
 
             services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
-            return services;
+            //Services
+            services.AddScoped<UserOperations>();
+
+        return services;
         }
     }
 

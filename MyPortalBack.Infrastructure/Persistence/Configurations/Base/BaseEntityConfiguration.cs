@@ -15,9 +15,9 @@ public abstract class BaseEntityConfiguration<TEntity>
 {
     public virtual void Configure(EntityTypeBuilder<TEntity> builder)
     {
-        builder.HasKey(x => x.Id);
+        builder.HasKey(x => x.Uuid);
 
-        builder.Property(x => x.Id)
+        builder.Property(x => x.Uuid)
                .ValueGeneratedNever();
     }
 }

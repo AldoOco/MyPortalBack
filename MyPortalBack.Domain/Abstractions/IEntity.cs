@@ -8,6 +8,8 @@ namespace MyPortalBack.Domain.Abstractions;
 
 public interface IEntity
 {
-    Guid Id { get; }
+    Guid Uuid { get; }
+
+    int Id { get; }
 }
 
