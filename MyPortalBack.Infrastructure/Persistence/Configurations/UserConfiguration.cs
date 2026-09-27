@@ -18,7 +18,16 @@ public class UserConfiguration : AuditableEntityConfiguration<User>
 
         builder.ToTable("Users");
 
-        //builder.HasKey(x => x.Id);
+        builder.HasKey(x => x.Id);
+
+        builder.Property(x => x.Id)
+            .ValueGeneratedOnAdd();
+
+        builder.Property(x => x.Uuid)
+            .IsRequired();
+
+        builder.HasIndex(x => x.Uuid)
+            .IsUnique();
 
         builder.Property(x => x.FirstName)
                .HasMaxLength(100)

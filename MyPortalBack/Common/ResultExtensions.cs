@@ -40,6 +40,9 @@ public static class ResultExtensions
             ErrorCodes.EmailAlreadyExists =>
                 controller.Conflict(result),
 
+            ErrorCodes.InvalidCredentials =>
+                controller.Unauthorized(result),
+
             ErrorCodes.ValidationError =>
                 controller.BadRequest(result),
 

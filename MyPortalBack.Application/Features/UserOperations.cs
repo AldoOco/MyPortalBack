@@ -3,6 +3,7 @@ using MyPortalBack.Application.Common.Contracts.Responses;
 using MyPortalBack.Application.Common.Interfaces;
 using MyPortalBack.Application.Common.Result;
 using MyPortalBack.Domain.Entities;
+using MyPortalBack.Application.Common.Mapping;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,11 +16,13 @@ public class UserOperations
 {
     private readonly IUserRepository _userRepository;
     private readonly IPasswordHasher _passwordHasher;
+    private readonly ICurrentUser _currentUser;
 
-    public UserOperations(IUserRepository userRepository, IPasswordHasher passwordHasher)
+    public UserOperations(IUserRepository userRepository, IPasswordHasher passwordHasher, ICurrentUser currentUser)
     {
         _userRepository = userRepository;
         _passwordHasher = passwordHasher;
+        _currentUser = currentUser;
     }
 
     // =========================
@@ -105,7 +108,7 @@ public class UserOperations
             LastLoginAt = null,
 
             CreatedAt = DateTimeOffset.UtcNow,
-            CreatedBy = null,
+            CreatedBy = _currentUser.UserUuid,
 
             UpdatedAt = null,
             UpdatedBy = null,
@@ -159,7 +162,7 @@ public class UserOperations
         user.IsActive = isActive;
 
         user.UpdatedAt = DateTimeOffset.UtcNow;
-        user.UpdatedBy = null;
+        user.UpdatedBy = _currentUser.UserUuid;
 
         await _userRepository.UpdateAsync(
             user,
@@ -197,7 +200,7 @@ public class UserOperations
         user.IsDeleted = true;
         user.IsActive = false;
         user.UpdatedAt = DateTimeOffset.UtcNow;
-        user.UpdatedBy = null;
+        user.UpdatedBy = _currentUser.UserUuid;
 
         await _userRepository.UpdateAsync(
             user,
@@ -210,21 +213,4 @@ public class UserOperations
             UserOperationsMapping.ToResponse(user));
     }
 
-}
-
-internal static class UserOperationsMapping
-{
-    public static UserResponse ToResponse(User user)
-    {
-        return new UserResponse
-        {
-            Id = user.Uuid,
-            FirstName = user.FirstName,
-            LastName = user.LastName,
-            Email = user.Email,
-            IsActive = user.IsActive,
-            LastLoginAt = user.LastLoginAt,
-            CreatedAt = user.CreatedAt
-        };
-    }
 }

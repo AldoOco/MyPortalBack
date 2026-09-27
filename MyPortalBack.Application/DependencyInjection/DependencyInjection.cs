@@ -24,6 +24,9 @@ namespace MyPortalBack.Application.DependencyInjection;
 
             //Services
             services.AddScoped<UserOperations>();
+            services.AddScoped<AuthOperations>();
+            services.AddScoped<RoleOperations>();
+            services.AddScoped<UserRoleOperations>();
 
         return services;
         }

@@ -1,43 +1,35 @@
-﻿using System;
+﻿using MyPortalBack.Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MyPortalBack.Domain.Entities;
 
 namespace MyPortalBack.Application.Common.Interfaces;
 
-public interface IUserRepository
+public interface IRoleRepository
 {
-    Task<User?> GetByIdAsync(
-        Guid id,
-        CancellationToken cancellationToken = default);
-
-    Task<User?> GetByIdIntAsync(
+    Task<Role?> GetByIdAsync(
         int id,
         CancellationToken cancellationToken = default);
 
-    Task<User?> GetByEmailAsync(
-        string email,
+    Task<Role?> GetByNameAsync(
+        string name,
         CancellationToken cancellationToken = default);
 
-    Task<bool> ExistsByEmailAsync(
-        string email,
+    Task<bool> ExistsByNameAsync(
+        string name,
+        CancellationToken cancellationToken = default);
+
+    Task<List<Role>> GetAllAsync(
         CancellationToken cancellationToken = default);
 
     Task AddAsync(
-        User user,
+        Role role,
         CancellationToken cancellationToken = default);
 
     Task UpdateAsync(
-        User user,
-        CancellationToken cancellationToken = default);
-
-    Task UpdateTokenAsync(
-       User user,
-       CancellationToken cancellationToken = default);
-
-    Task<IReadOnlyList<User>> GetAllAsync(
+        Role role,
         CancellationToken cancellationToken = default);
 
     Task SaveChangesAsync(

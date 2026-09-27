@@ -29,6 +29,16 @@ public class UserRepository : IUserRepository
                 cancellationToken);
     }
 
+    public async Task<User?> GetByIdIntAsync(
+        int id,
+        CancellationToken cancellationToken = default)
+    {
+        return await _context.Users
+            .FirstOrDefaultAsync(
+                user => user.Id == id && !user.IsDeleted,
+                cancellationToken);
+    }
+
     public async Task<User?> GetByEmailAsync(
         string email,
         CancellationToken cancellationToken = default)
@@ -60,6 +70,16 @@ public class UserRepository : IUserRepository
         User user,
         CancellationToken cancellationToken = default)
     {
+        _context.Users.Update(user);
+
+        return Task.CompletedTask;
+    }
+
+    public Task UpdateTokenAsync(
+        User user,
+        CancellationToken cancellationToken = default)
+    {
+        _context.Entry(user).Property(u => u.Id).IsModified = false;
         _context.Users.Update(user);
 
         return Task.CompletedTask;

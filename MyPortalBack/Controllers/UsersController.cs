@@ -1,9 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using MyPortalBack.Api.Common;
 using MyPortalBack.Application.Common.Contracts.Requests;
 using MyPortalBack.Application.Common.Contracts.Responses;
 using MyPortalBack.Application.Common.Result;
 using MyPortalBack.Application.Features;
-using MyPortalBack.Api.Common;
 
 namespace MyPortalBack.Api.Controllers;
 
@@ -12,6 +13,7 @@ namespace MyPortalBack.Api.Controllers;
 /// </summary>
 [ApiController]
 [Route("api/v1/[controller]")]
+[Authorize]
 public class UsersController : ControllerBase
     {
     private readonly UserOperations _userOperations;
