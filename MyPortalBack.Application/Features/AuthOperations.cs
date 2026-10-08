@@ -234,7 +234,7 @@ public class AuthOperations
                 "El refresh token ya fue revocado.");
         }
 
-        refreshToken.RevokedAt = DateTimeOffset.UtcNow;
+        refreshToken.RevokedAt = DateTimeOffset.UtcNow;//Puede que sea redundante
 
         //await _refreshTokenRepository.UpdateAsync(refreshToken,cancellationToken);
         await _refreshTokenRepository.RevokeFamilyAsync(refreshToken.TokenFamilyUuid,cancellationToken);

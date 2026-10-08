@@ -18,7 +18,7 @@ public class RolesController : ControllerBase
     private readonly RoleOperations _roleOperations;
 
     /// <summary>
-    /// Declaracion de clase contenedora de roles.
+    /// Inicializa una nueva instancia del controlador de roles.
     /// </summary>
     public RolesController(RoleOperations roleOperations)
     {
